@@ -1,5 +1,5 @@
 
-package Fundamentals.julio_22;
+package Fundamentals.julio_21;
 
 public class Saludo {
 
@@ -26,7 +26,7 @@ public class Saludo {
     }
 
     public static void saludosTotales() {
-        System.out.println("Saludos Totales");
+        System.out.println("Saludos Totales 2");
     }
 
 }
