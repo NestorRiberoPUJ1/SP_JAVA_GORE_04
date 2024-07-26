@@ -13,6 +13,9 @@ public class MedioTransporte {
     private String tipo;
 
     /* CONSTRUCTORES */
+
+ 
+
     public MedioTransporte() {
     }
 
@@ -25,6 +28,10 @@ public class MedioTransporte {
         this.pasajeros = pasajeros;
         this.combustible = combustible;
         this.tipo = tipo;
+    }
+
+    public MedioTransporte(MedioTransporte medioTransporte){
+        this(medioTransporte.transporteMasivo, medioTransporte.medio, medioTransporte.asientos, medioTransporte.cantidadAsientos, medioTransporte.pasajeros, medioTransporte.combustible, medioTransporte.tipo);
     }
 
     /* MÉTODOS */
