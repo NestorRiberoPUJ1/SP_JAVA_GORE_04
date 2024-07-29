@@ -49,7 +49,6 @@ public class Literatura  extends ObrasDeArte{
         System.out.println("...Y ya se encuentra lista para leer.");
     }
     
-    @Deprecated
     public static void saludarArtistas(){
         System.out.println("¡Hola artistas literarios!");
     }   
