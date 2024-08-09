@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("http://localhost:8080/assets/backgrounds/pattern.png");
+    background-size: 80px;
+    background-repeat: repeat;
+    backdrop-filter: blur(0.5px);
+}
+
+h1 {
+    color: white;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    align-items: flex-start;
+}
+
+.form-control {
+    border: 1px solid black;
+    padding: 8px;
+    border-radius: 12px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+}
+
+nav {
+    height: 64px;
+    background-color: dodgerblue;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 0px 16px;
+}
