@@ -13,15 +13,20 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class MovieService {
-    
+
     @Autowired
     private MovieRepository movieRepository;
-
 
     // Método que permite buscar todas las peliculas
     public List<Movie> findAll() {
         // TODA LA LÓGICA ADICIONAL QUE SE REQUIERA
         return movieRepository.findAll();
+    }
+
+    // Método que permite buscar todas las peliculas sin playlist
+    public List<Movie> findAllWithoutPlaylist() {
+        // TODA LA LÓGICA ADICIONAL QUE SE REQUIERA
+        return movieRepository.findByPlaylist(null);
     }
 
     // Método que permite buscar una pelicula por su id
@@ -47,7 +52,5 @@ public class MovieService {
         // TODA LA LÓGICA ADICIONAL QUE SE REQUIERA
         movieRepository.deleteById(id);
     }
-
-
 
 }

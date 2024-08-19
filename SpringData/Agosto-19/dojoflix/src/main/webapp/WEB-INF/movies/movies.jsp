@@ -31,8 +31,10 @@
                         <div class="movieCard">
                             <img src="${movie.poster}" alt="noimage">
                             <h4>${movie.title}</h4>
+                            <p>Directed By: ${movie.director.name}</p>
                             <p>${movie.duration} min</p>
                             <p>${movie.synopsis}</p>
+                            <p>Playlist: ${movie.playlist.songs}</p>
                             <div>
                                 <a href="/movies/${movie.id}">Ver</a>
                                 <a href="/movies/edit/${movie.id}">Editar</a>
