@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 public abstract class BaseService {
 
     //Método abstracto para buscar todos los registros
-    public abstract Object save(Object object);
+    public abstract Object findAll();
 
     //Método abstracto para buscar un registro por id
     public abstract Object findById(Long id);

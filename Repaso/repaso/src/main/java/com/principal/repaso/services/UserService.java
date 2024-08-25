@@ -1,5 +1,7 @@
 package com.principal.repaso.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +33,8 @@ public class UserService extends BaseService {
     }
 
     @Override
-    public User save(Object object) {
-        return userRepository.save((User) object);
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override
