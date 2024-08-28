@@ -29,7 +29,7 @@ public class User extends Base {
     @Email(message = "El email no es valido")
     private String email;
 
-    @NotNull(message = "La contraseña es requerida")
+
     private String password;
 
     @NotNull(message = "La contraseña es requerida")

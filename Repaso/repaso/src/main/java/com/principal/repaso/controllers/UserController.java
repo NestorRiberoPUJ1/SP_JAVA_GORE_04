@@ -1,6 +1,5 @@
 package com.principal.repaso.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.principal.repaso.models.User;
+import com.principal.repaso.models.forms.Session;
 import com.principal.repaso.services.UserService;
 
 import jakarta.validation.Valid;
@@ -49,10 +49,13 @@ public class UserController {
 
     // Método para guardar un usuario
     @PostMapping("/new")
-    public String save(@Valid @ModelAttribute("user") User user, BindingResult result) {
+    public String save(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        result = userService.validateUser(user, result);
         if (result.hasErrors()) {
-            return "users/create.jsp";
+            model.addAttribute("session", new Session());
+            return "home/index.jsp";
         }
+        userService.create(user);
         return "redirect:/users";
     }
 
