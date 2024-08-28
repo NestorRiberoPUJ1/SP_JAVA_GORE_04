@@ -1,6 +1,11 @@
 package com.principal.repaso.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -40,5 +45,16 @@ public class User extends Base {
 
     @Transient
     private String passwordConfirm;
+
+
+    /* RELACIONES */
+    @ManyToMany
+    @JoinTable(
+        name = "inscriptions", //nombre de la tabla intermedia
+        joinColumns= @JoinColumn(name = "user_id"),   //nombre de la columna de la tabla intermedia que hace referencia a la tabla actual
+        inverseJoinColumns = @JoinColumn(name = "course_id")  //nombre de la columna de la tabla intermedia que hace referencia a la tabla con la que se relaciona
+    )
+    private List<Course> courses;
+
 
 }

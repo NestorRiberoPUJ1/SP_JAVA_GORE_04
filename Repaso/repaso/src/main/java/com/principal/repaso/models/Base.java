@@ -26,7 +26,6 @@ import lombok.Setter;
 @Setter
 public abstract class Base {
     
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -24,6 +24,8 @@ public class SessionService {
             result.rejectValue("email", "error", "Email no registrado");
         } else if (!BCrypt.checkpw(password, user.getPassword())) {
             result.rejectValue("password", "error", "Contraseña incorrecta");
+        }else{
+            session.setAttribute("currentUser", user);
         }
 
         return result;

@@ -1,9 +1,29 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
-li{
+li {
     padding-left: 12px;
+}
+
+table {
+    width: 100%;
+    background-color: black;
+}
+
+table > thead {
+    background-color: #a4a4a4;
+}
+table > tbody {
+    background-color: #ffffff;
+}
+table > thead > tr > th {
+    text-align: left;
+    padding: 2px 4px;
+}
+table > tbody > tr > td {
+    text-align: left;
+    padding: 2px 4px;
 }
