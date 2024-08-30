@@ -2,14 +2,15 @@ package com.principal.repaso.services;
 
 import java.util.List;
 
-import javax.naming.Binding;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.principal.repaso.models.Course;
+import com.principal.repaso.models.Inscription;
 import com.principal.repaso.models.User;
+import com.principal.repaso.respositories.InscriptionRepository;
 import com.principal.repaso.respositories.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,8 @@ public class UserService extends BaseService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private InscriptionRepository inscriptionRepository;
 
     @Override
     public User create(Object object) {
@@ -53,12 +56,26 @@ public class UserService extends BaseService {
         } else if (!user.getPasswordForm().equals(user.getPasswordConfirm())) {
             result.rejectValue("passwordConfirm", "errorConfirm", "Las contraseñas no coinciden");
         } else {
-            //Encriptamos la contraseña si todo está bien.
-            String hashedPassword= BCrypt.hashpw(user.getPasswordForm(), BCrypt.gensalt());
-            user.setPassword(hashedPassword);          
+            // Encriptamos la contraseña si todo está bien.
+            String hashedPassword = BCrypt.hashpw(user.getPasswordForm(), BCrypt.gensalt());
+            user.setPassword(hashedPassword);
         }
 
         return result;
     }
 
+    public User addCourse(User user, Course course) {
+        List<Course> actualCourses = user.getCourses();
+        actualCourses.add(course);
+        user.setCourses(actualCourses);
+        return userRepository.save(user);
+    }
+
+    public User removeCourse(User user, Course course) {
+        List<Course> actualCourses = user.getCourses();
+        // Eliminamos el curso de la lista de cursos del usuario por su id
+        actualCourses.removeIf(c -> c.getId() == course.getId());
+        user.setCourses(actualCourses);
+        return userRepository.save(user);
+    }
 }

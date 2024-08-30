@@ -1,5 +1,7 @@
 package com.principal.repaso.controllers;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.naming.Binding;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.principal.repaso.models.Course;
 import com.principal.repaso.services.CourseService;
@@ -32,6 +35,11 @@ public class CourseController {
     // Método para mostrar la vista de cursos
     @GetMapping("")
     public String index(HttpSession session, Model model) {
+
+        // Si no hay un usuario logueado, redirigimos al login
+        if (session.getAttribute("currentUser") == null) {
+            return "redirect:/";
+        }
         model.addAttribute("courses", courseService.findAll());
 
         return "courses/index.jsp";
@@ -62,14 +70,31 @@ public class CourseController {
     }
 
     // Método para mostrar la vista de editar curso
-    @GetMapping("/{id}/edit")
-    public String edit() {
+    @GetMapping("/{currentId}/edit")
+    public String edit(
+            @Valid @ModelAttribute("course") Course course, BindingResult result,
+            Model model,
+            @PathVariable("currentId") Long currentId) {
+        // SIGNIFICA QUE NO TENEMOS UN MODELO DE CURSO POR REDIRECCION ENTONCES LO
+        // BUSCAMOS
+        if (course.getId() == null) {
+            course = courseService.findById(currentId);
+        }
+        model.addAttribute("course", course);
         return "courses/edit.jsp";
     }
 
     // Método para actualizar un curso
     @PutMapping("/{id}/edit")
-    public String update() {
+    public String update(@Valid @ModelAttribute("course") Course course, BindingResult result,
+            RedirectAttributes redirectAttributes, @PathVariable("id") Long id) {
+
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.course", result);
+            redirectAttributes.addFlashAttribute("course", course);
+            return "redirect:/courses/" + id + "/edit";
+        }
+        courseService.update(course);
         return "redirect:/courses";
     }
 

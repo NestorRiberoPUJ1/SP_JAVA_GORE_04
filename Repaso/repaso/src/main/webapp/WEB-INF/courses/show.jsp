@@ -18,7 +18,7 @@
                     <h3>Instructor : ${course.instructor}</h3>
                     <div class="filterRow">
                         <h3>
-                           Sign Ups: ${course.users.size()}
+                            Sign Ups: ${course.users.size()}
                         </h3>
                         <div>
                             <a href="">Low Sign Up</a>
@@ -38,7 +38,13 @@
                                 <tr>
                                     <td> ${user.name}</td>
                                     <td>FECHA</td>
-                                    <td>remove</td>
+                                    <td>
+                                        <form action="/inscriptions" method="post">
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <input type="hidden" name="courseId" value="${course.id}" />
+                                            <button type="submit">Remove</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

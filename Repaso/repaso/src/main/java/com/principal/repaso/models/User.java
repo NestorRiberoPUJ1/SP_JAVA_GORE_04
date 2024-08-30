@@ -3,6 +3,7 @@ package com.principal.repaso.models;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -48,7 +49,7 @@ public class User extends Base {
 
 
     /* RELACIONES */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "inscriptions", //nombre de la tabla intermedia
         joinColumns= @JoinColumn(name = "user_id"),   //nombre de la columna de la tabla intermedia que hace referencia a la tabla actual

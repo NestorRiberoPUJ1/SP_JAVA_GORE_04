@@ -40,15 +40,21 @@
                                     <td>${course.instructor}</td>
                                     <td>${course.users.size()} / ${course.capacity}</td>
                                     <td>
-                                        Add
+                                        <form action="/inscriptions" method="post">
+                                            <input type="hidden" name="courseId" value="${course.id}" />
+                                            <button type="submit">ADD</button>
+                                        </form>
+
                                     </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
-                    <a href="/courses/new">
-                        <button>Add a Course</button>
-                    </a>
+                    <button>
+                        <a href="/courses/new">
+                            Add a Course
+                        </a>
+                    </button>
                 </main>
             </body>
 
