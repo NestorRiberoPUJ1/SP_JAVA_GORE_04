@@ -21,9 +21,12 @@ public class Inscription extends Base {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
-    
+
+    public String getCreatedAtDateOnly() {
+        return this.getCreatedAt().toString().substring(0, 10);
+    }
+
 }

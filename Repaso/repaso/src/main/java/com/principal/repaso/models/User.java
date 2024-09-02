@@ -7,6 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -56,6 +57,23 @@ public class User extends Base {
         inverseJoinColumns = @JoinColumn(name = "course_id")  //nombre de la columna de la tabla intermedia que hace referencia a la tabla con la que se relaciona
     )
     private List<Course> courses;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Inscription> inscriptions;
+
+
+
+
+    //Método para buscar una inscripcion por id del curso
+    public Inscription findInscriptionByCourseId(Long id){
+        for(Inscription inscription: this.inscriptions){
+            if(inscription.getCourse().getId() == id){
+                return inscription;
+            }
+        }
+        return null;
+    }
 
 
 }

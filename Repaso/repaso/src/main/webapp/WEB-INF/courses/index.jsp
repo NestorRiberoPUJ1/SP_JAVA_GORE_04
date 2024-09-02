@@ -20,8 +20,8 @@
                             Courses
                         </h3>
                         <div>
-                            <a href="">Low Sign Up</a>
-                            <a href="">High Sign Up</a>
+                            <a href="/courses?sort=ASC">Low Sign Up</a>
+                            <a href="/courses?sort=DESC">High Sign Up</a>
                         </div>
                     </div>
                     <table>
@@ -40,10 +40,25 @@
                                     <td>${course.instructor}</td>
                                     <td>${course.users.size()} / ${course.capacity}</td>
                                     <td>
-                                        <form action="/inscriptions" method="post">
-                                            <input type="hidden" name="courseId" value="${course.id}" />
-                                            <button type="submit">ADD</button>
-                                        </form>
+                                        <c:choose>
+                                            <c:when test="${course.isFull()}">
+                                                <p>
+                                                    Course is Full
+                                                </p>
+                                            </c:when>
+                                            <c:when test="${!course.hasStudentById(currentUser.getId())}">
+                                                <form action="/inscriptions" method="post">
+                                                    <input type="hidden" name="courseId" value="${course.id}" />
+                                                    <button type="submit">ADD</button>
+                                                </form>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p>
+                                                    Already Enrolled
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
+
 
                                     </td>
                                 </tr>

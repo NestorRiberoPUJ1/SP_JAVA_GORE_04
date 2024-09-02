@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.principal.repaso.models.Course;
@@ -34,14 +35,17 @@ public class CourseController {
 
     // Método para mostrar la vista de cursos
     @GetMapping("")
-    public String index(HttpSession session, Model model) {
+    public String index(HttpSession session, Model model, @RequestParam(value = "sort", required = false) String sort) {
 
         // Si no hay un usuario logueado, redirigimos al login
         if (session.getAttribute("currentUser") == null) {
             return "redirect:/";
         }
+        if(sort != null){
+            model.addAttribute("courses", courseService.findAll(sort));
+            return "courses/index.jsp";
+        }
         model.addAttribute("courses", courseService.findAll());
-
         return "courses/index.jsp";
     }
 

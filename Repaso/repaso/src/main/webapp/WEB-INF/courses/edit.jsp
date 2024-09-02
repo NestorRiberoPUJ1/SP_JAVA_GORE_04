@@ -34,7 +34,8 @@
                                 <form:input path="capacity" type="number" />
                                 <form:errors path="capacity" />
                             </div>
-
+                            <!-- MANTENER LAS RELACIONES -->
+                            <form:hidden path="users" />
                             <button type="submit">Update</button>
                         </form:form>
                         <a href="/courses">Volver</a>

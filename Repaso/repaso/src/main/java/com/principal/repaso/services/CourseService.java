@@ -32,6 +32,47 @@ public class CourseService extends BaseService {
         return courseRepository.findAll();
     }
 
+    public List<Course> findAll(String sort) {
+        List<Course> cursos = courseRepository.findAll();
+
+        // Ordenar cursos por cantidad de usuarios
+
+        cursos.sort((a, b) -> {
+            if (sort.toUpperCase().equals("ASC")) {
+                return a.getUsers().size() > b.getUsers().size() ? 1 : -1;
+            } else {
+                return a.getUsers().size() > b.getUsers().size() ? -1 : 1;
+            }
+        });
+
+        /*
+         * cursos.sort((a, b) -> {
+         * if (sort.toUpperCase().equals("ASC")) {
+         * if (a.getInstructor().toUpperCase().equals("VALERIA") &&
+         * (b.getInstructor().toUpperCase().equals("NESTOR") ||
+         * b.getInstructor().toUpperCase().equals("CAROLINA"))) {
+         * return 1;
+         * } else if (a.getInstructor().toUpperCase().equals("NESTOR")
+         * && b.getInstructor().toUpperCase().equals("CAROLINA")) {
+         * return 1;
+         * }
+         * return -1;
+         * }
+         * if (a.getInstructor().toUpperCase().equals("CAROLINA") &&
+         * (b.getInstructor().toUpperCase().equals("NESTOR") ||
+         * b.getInstructor().toUpperCase().equals("VALERIA"))) {
+         * return 1;
+         * } else if (a.getInstructor().toUpperCase().equals("NESTOR")
+         * && b.getInstructor().toUpperCase().equals("VALERIA")) {
+         * return 1;
+         * }
+         * return -1;
+         * });
+         */
+
+        return cursos;
+    }
+
     @Override
     public Course findById(Long id) {
         return courseRepository.findById(id).orElse(null);

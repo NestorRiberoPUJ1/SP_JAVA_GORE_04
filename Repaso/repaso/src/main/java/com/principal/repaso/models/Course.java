@@ -49,4 +49,22 @@ public class Course extends Base {
     private List<User> users;
 
 
+
+
+
+    //Método para ver si un estudiante ya está inscrito en el curso
+    public boolean hasStudentById(Long id){
+        for(User user: this.users){
+            if(user.getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Método para ver si el curso está lleno
+    public boolean isFull(){
+        return this.users.size() >= this.capacity;
+    }
+
 }

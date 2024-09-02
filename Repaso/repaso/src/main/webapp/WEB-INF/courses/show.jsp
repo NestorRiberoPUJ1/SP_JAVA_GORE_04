@@ -37,13 +37,16 @@
                             <c:forEach items="${course.users}" var="user">
                                 <tr>
                                     <td> ${user.name}</td>
-                                    <td>FECHA</td>
+                                    <td>${user.findInscriptionByCourseId(course.getId()).getCreatedAtDateOnly()}</td>
                                     <td>
-                                        <form action="/inscriptions" method="post">
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <input type="hidden" name="courseId" value="${course.id}" />
-                                            <button type="submit">Remove</button>
-                                        </form>
+                                        <!-- EL usuario en la sesión es el mismo de la fila en la tabla -->
+                                        <c:if test="${user.getId()==currentUser.getId()}">
+                                            <form action="/inscriptions" method="post">
+                                                <input type="hidden" name="_method" value="DELETE" />
+                                                <input type="hidden" name="courseId" value="${course.id}" />
+                                                <button type="submit">Remove</button>
+                                            </form>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
