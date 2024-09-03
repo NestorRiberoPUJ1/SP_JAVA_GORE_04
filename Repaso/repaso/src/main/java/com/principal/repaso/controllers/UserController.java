@@ -16,6 +16,7 @@ import com.principal.repaso.models.User;
 import com.principal.repaso.models.forms.Session;
 import com.principal.repaso.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -49,14 +50,16 @@ public class UserController {
 
     // Método para guardar un usuario
     @PostMapping("/new")
-    public String save(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+    public String save(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,
+            HttpSession session) {
         result = userService.validateUser(user, result);
         if (result.hasErrors()) {
             model.addAttribute("session", new Session());
             return "home/index.jsp";
         }
-        userService.create(user);
-        return "redirect:/users";
+        User currentUser = userService.create(user);
+        session.setAttribute("currentUser", currentUser);   //Automaticamente crea la sesión
+        return "redirect:/courses";
     }
 
     // Método para mostrar la vista de editar usuario

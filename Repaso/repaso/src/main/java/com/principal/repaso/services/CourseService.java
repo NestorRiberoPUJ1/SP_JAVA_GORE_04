@@ -78,6 +78,20 @@ public class CourseService extends BaseService {
         return courseRepository.findById(id).orElse(null);
     }
 
+    public Course findById(Long id, String sort) {
+        Course course = courseRepository.findById(id).orElse(null);
+        if (course != null) {
+            course.getInscriptions().sort((a, b) -> {
+                if (sort.toUpperCase().equals("ASC")) {
+                    return a.getCreatedAt().after(b.getCreatedAt()) ? 1 : -1;
+                }
+                return a.getCreatedAt().after(b.getCreatedAt()) ? -1 : 1;
+            });
+        }
+
+        return course;
+    }
+
     @Override
     public Course update(Object object) {
         return courseRepository.save((Course) object);

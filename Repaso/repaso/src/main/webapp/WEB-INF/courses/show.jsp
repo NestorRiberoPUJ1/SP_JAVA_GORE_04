@@ -21,8 +21,8 @@
                             Sign Ups: ${course.users.size()}
                         </h3>
                         <div>
-                            <a href="">Low Sign Up</a>
-                            <a href="">High Sign Up</a>
+                            <a href="/courses/${course.id}?sort=ASC">Sign Up Date ASC</a>
+                            <a href="/courses/${course.id}?sort=DESC">Sign Up Date DESC</a>
                         </div>
                     </div>
                     <table>
@@ -34,13 +34,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${course.users}" var="user">
+                            <c:forEach items="${course.inscriptions}" var="inscription">
                                 <tr>
-                                    <td> ${user.name}</td>
-                                    <td>${user.findInscriptionByCourseId(course.getId()).getCreatedAtDateOnly()}</td>
+                                    <td> ${inscription.user.name}</td>
+                                    <td>${inscription.user.findInscriptionByCourseId(course.getId()).getCreatedAtDateOnly()}</td>
                                     <td>
                                         <!-- EL usuario en la sesión es el mismo de la fila en la tabla -->
-                                        <c:if test="${user.getId()==currentUser.getId()}">
+                                        <c:if test="${inscription.user.getId()==currentUser.getId()}">
                                             <form action="/inscriptions" method="post">
                                                 <input type="hidden" name="_method" value="DELETE" />
                                                 <input type="hidden" name="courseId" value="${course.id}" />

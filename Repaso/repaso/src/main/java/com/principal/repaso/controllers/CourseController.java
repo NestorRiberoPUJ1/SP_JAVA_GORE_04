@@ -41,7 +41,7 @@ public class CourseController {
         if (session.getAttribute("currentUser") == null) {
             return "redirect:/";
         }
-        if(sort != null){
+        if (sort != null) {
             model.addAttribute("courses", courseService.findAll(sort));
             return "courses/index.jsp";
         }
@@ -51,8 +51,14 @@ public class CourseController {
 
     // Método para mostrar la vista de curso por id
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("course", courseService.findById(id));
+    public String show(@PathVariable("id") Long id, Model model,
+            @RequestParam(value = "sort", required = false) String sort) {
+        if (sort != null) {
+            model.addAttribute("course", courseService.findById(id, sort));
+        } else {
+            model.addAttribute("course", courseService.findById(id));
+        }
+
         return "courses/show.jsp";
     }
 
